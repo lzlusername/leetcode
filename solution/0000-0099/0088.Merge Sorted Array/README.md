@@ -105,6 +105,25 @@ class Solution {
 }
 ```
 
+我们可以使用两个指针p1和p2，分别指向nums1和nums2的有数字的部分的最后一个元素，即nums1[m - 1]和nums2[n - 1]。每次将较大的那个数字复制到nums1的后面，然后向前移动一位。
+
+我们首先初始化两个指针p1和p2，以及一个指针p，指向nums1的最后。然后我们进行比较，每次将较大的数放入nums1的后面，然后将指针向前移动。当其中一个指针移动到开始位置后，退出循环。最后，如果p2还没有到达开始位置，说明nums2中还有元素没有复制到nums1中，所以我们需要将nums2中剩余的元素复制到nums1的开始位置
+```java
+class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+
+        int p1 = m - 1;
+        int p2 = n - 1;
+        int p = m + n - 1;
+        while ((p1 >= 0) && (p2 >= 0)) {
+            nums1[p--] = (nums1[p1] < nums2[p2]) ? nums2[p2--] : nums1[p1--];
+        }
+        System.arraycopy(nums2, 0, nums1, 0, p2 + 1);
+
+    }
+}
+```
+
 ### **C++**
 
 ```cpp
