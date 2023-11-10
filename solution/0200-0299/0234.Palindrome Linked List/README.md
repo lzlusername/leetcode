@@ -119,6 +119,55 @@ class Solution {
     }
 }
 ```
+NEW BING解法
+```java
+class Solution {
+    public boolean isPalindrome(ListNode head) {
+        // 如果链表为空或只有一个元素，直接返回 true
+        if (head == null || head.next == null) {
+            return true;
+        }
+
+        // 快慢指针找到链表的中间节点
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        // 反转后半部分的链表
+        //定义一个新的节点 prev ，并将其初始化为 null 。这个节点的作用是记录反转后的链表的头节点，也就是原链表的尾节点
+        ListNode prev = null;
+        // slow 是一个指针，它指向链表的中间节点，也就是反转的起点。这个循环的作用是遍历后半部分的链表，依次将每个节点反转。
+        while (slow != null) {
+            // 定义一个新的节点 next ，并将其赋值为 slow 的下一个节点。这个节点的作用是记录反转前的链表的下一个节点，也就是反转后的链表的前一个节点
+            ListNode next = slow.next;
+            // 将 slow 的 next 指针指向 prev ，也就是将当前节点的指针方向改变，从而实现节点的反转
+            slow.next = prev;
+            // 将 prev 赋值为 slow ，也就是将反转后的链表的头节点更新为当前节点
+            prev = slow;
+            // 将 slow 赋值为 next ，也就是将反转前的链表的指针后移一位，继续遍历下一个节点。
+            slow = next;
+        }
+        // 此时 prev 就是反转后的链表的头节点，也就是原链表的尾节点。
+
+
+        // 比较前半部分和后半部分的元素是否相等
+        while (prev != null) {
+            if (head.val != prev.val) {
+                return false;
+            }
+            head = head.next;
+            prev = prev.next;
+        }
+
+        // 如果都相等，返回 true
+        return true;
+
+    }
+}
+```
 
 ### **C++**
 
