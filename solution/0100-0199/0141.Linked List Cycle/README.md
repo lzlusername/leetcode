@@ -131,6 +131,69 @@ public class Solution {
     }
 }
 ```
+New Bing解法
+```java
+// 定义单链表的节点类
+class ListNode {
+    int val; // 节点的值
+    ListNode next; // 节点的下一个指针
+    ListNode(int x) { // 节点的构造方法
+        val = x;
+        next = null;
+    }
+}
+
+// 定义解决方案的类
+class Solution {
+    // 定义找到相交节点的方法
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        // 如果两个链表为空，直接返回 null
+        if (headA == null || headB == null) {
+            return null;
+        }
+        // 定义两个变量来存储两个链表的长度
+        int lenA = 0, lenB = 0;
+        // 定义两个指针来遍历两个链表
+        ListNode curA = headA, curB = headB;
+        // 计算链表 A 的长度
+        while (curA != null) {
+            lenA++;
+            curA = curA.next;
+        }
+        // 计算链表 B 的长度
+        while (curB != null) {
+            lenB++;
+            curB = curB.next;
+        }
+        // 重置两个指针为链表的头节点
+        curA = headA;
+        curB = headB;
+        // 如果链表 A 比链表 B 长，让链表 A 先走 lenA - lenB 步
+        while (lenA > lenB) {
+            curA = curA.next;
+            lenA--;
+        }
+        // 如果链表 B 比链表 A 长，让链表 B 先走 lenB - lenA 步
+        while (lenB > lenA) {
+            curB = curB.next;
+            lenB--;
+        }
+        // 此时两个链表剩余的部分长度相等，同时遍历两个链表，直到找到相同的节点或者到达链表的尾部
+        while (curA != null && curB != null) {
+            // 如果两个节点相同，就是相交的起始节点，返回该节点
+            if (curA == curB) {
+                return curA;
+            }
+            // 否则，两个指针都后移一步
+            curA = curA.next;
+            curB = curB.next;
+        }
+        // 如果没有找到相同的节点，就返回 null
+        return null;
+    }
+}
+
+```
 
 ### **C++**
 
